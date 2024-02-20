@@ -22,10 +22,21 @@ with output_path.open('w', newline='') as f:
     writer.writeheader()
 
     for identifier, github_username, repo in assignment.roster():
-        print(identifier)
+        print(identifier + "\t")
+        
         row = defaults.copy()
         row['identifier'] = identifier
         row['github_username'] = github_username
         if repo:
+            print("All commits by week:\n")
+            print(str(repo.all_commits_by_week()) + "\n\n")
+            print("All commits:\n")
+
+            print(str(repo.all_commits())  + "\n\n")
+            print("Commit Count By Week:\n")
+            print(str(repo.commit_count_by_week()) + "\n\n")
+            
+            print("Weeks:\n")            
+            print(str(repo.commit_weeks())  + "\n\n")
             row.update(dict(repo.commit_count_by_week()))
         writer.writerow(row)
